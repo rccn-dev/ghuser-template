@@ -41,8 +41,8 @@ print nothing.
 ## You need
 
 Rhino 8, [uv](https://docs.astral.sh/uv/), git, and Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/),
-OrbStack or colima). Keep the project under your home folder, which Docker shares by default.
-The first build makes the builder image on your machine, once: a few minutes.
+OrbStack or colima), running. The first build makes the builder image on your
+machine, once: a few minutes.
 
 ## Work on it
 
@@ -61,13 +61,20 @@ Add a function: write its test in `tests/` first, then the function in
 uv run scripts/dev.py            # build, link into Grasshopper, reload a running Rhino
 ```
 
-The components now read the core straight from `src/`. Edit it, run `dev.py`
-again, and the canvas recomputes with the new code: nothing to reinstall. After
-adding a component, run it and restart Grasshopper. `uv run scripts/dev.py status`
-says what Grasshopper loads and what collides.
+The components now read the core straight from `src/`. Run `dev.py` after every
+edit; what else to do depends on what you edited:
 
-On a Mac this uses your Rhino and no Docker; components show the default icon on
-the canvas. On Windows it builds in Docker.
+| You edit | Then |
+| --- | --- |
+| `src/` | nothing: the canvas recomputes with the new core |
+| a `code.py` | replace that component on the canvas |
+| a `metadata.json` or `icon.png`, or add a component | restart Rhino, then replace it |
+
+A component placed on the canvas keeps the `code.py` it was placed with, and a `.gh`
+file saves it that way. So a dev component checks, when it loads, that it matches the
+latest `dev.py` build. If not, it stops with the reason on it (`dev: replace`,
+`dev: restart, replace`) instead of quietly running old code.
+`uv run scripts/dev.py status` says what Grasshopper loads and what collides.
 
 To add a component: copy `components/Mt_ColumnGrid/` to a new folder, rename
 the class to match the folder, change the one call and the conversion at the
@@ -84,8 +91,9 @@ uv run scripts/ghuser.py --version 0.1.0 # dist/my-tool-0.1.0-rh8_0-any.yak
 
 The `.yak` is the whole tool: the core travels inside it (`lib/my_tool`). Drag
 it onto Rhino 8, **restart Rhino**, and check the components work from the
-ribbon before you hand it in. Uninstall it in the Package Manager before going
-back to `dev.py`.
+ribbon before you hand it in. Components from the dev build now stop
+(`dev: not deployed`): replace them with the installed ones in any `.gh` you hand in.
+Uninstall the `.yak` in the Package Manager before going back to `dev.py`.
 
 ## Release
 

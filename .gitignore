@@ -4,4 +4,3 @@ dist-dev/
 __pycache__/
 .pytest_cache/
 *.egg-info/
-.ghuser-dev-stage/
