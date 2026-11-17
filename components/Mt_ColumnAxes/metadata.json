@@ -1,0 +1,41 @@
+{
+    "name": "Column Axes",
+    "nickname": "Axes",
+    "category": "My Tool",
+    "subcategory": "Geometry",
+    "description": "An axis line for every column base, along a direction (up by default).",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {
+                "name": "bases",
+                "description": "Column bases, as a list of points",
+                "typeHintID": "point",
+                "scriptParamAccess": "list",
+                "optional": false
+            },
+            {
+                "name": "height",
+                "description": "Column height (m)",
+                "typeHintID": "float",
+                "scriptParamAccess": "item",
+                "optional": false
+            },
+            {
+                "name": "direction",
+                "description": "Which way the columns go (default: up)",
+                "typeHintID": "vector",
+                "scriptParamAccess": "item",
+                "optional": true
+            }
+        ],
+        "outputParameters": [
+            {
+                "name": "axes",
+                "description": "One line per column"
+            }
+        ]
+    }
+}

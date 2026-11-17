@@ -27,13 +27,44 @@ my_tool/
 The rule that holds it together: **`src/` never imports Rhino, and
 `components/` never contains logic.**
 
+## The samples
+
+Six components in a "My Tool" tab, four panels. Each is the whole path for one
+Grasshopper feature: a core function in `src/my_tool/`, its test in `tests/`, and the
+adapter in `components/`. Keep the ones you can start from, delete the rest (all three
+parts, and the export in `src/my_tool/__init__.py`).
+
+| Panel | Component | Shows |
+| --- | --- | --- |
+| Structure | `Mt_ColumnGrid` | item inputs: numbers, an optional one with a default; points out |
+| Structure | `Mt_GridLabels` | a true/false input, text out; a second row in the panel (`exposure: 4`) |
+| Analysis | `Mt_SpanCheck` | a list in (`"scriptParamAccess": "list"`); four outputs; colours; an orange warning |
+| Geometry | `Mt_ColumnAxes` | points and a vector in, lines out: Rhino geometry to plain numbers and back |
+| Geometry | `Mt_FloorArea` | a curve in; the core's `ValueError` shown as the component's red error |
+| Data | `Mt_AreaSchedule` | a tree in and out (`"tree"`), one branch per floor; text out |
+
+What sets each of these, in `metadata.json`:
+
+| Key | Sets | Values |
+| --- | --- | --- |
+| `category`, `subcategory` | the tab, and the panel in it | any text |
+| `exposure` | the row in the panel | `2` first, `4` second, `8` third ...; `-1` hidden |
+| `typeHintID` | what an input converts its data to | `int`, `float`, `bool`, `str`, `point`, `vector`, `curve`, `line`, `mesh`, `brep`, `color`, ... |
+| `scriptParamAccess` | one item per run, the whole list, or the whole tree | `item`, `list`, `tree` |
+| `optional` | may stay unconnected (it then arrives as `None`) | `true`, `false` |
+
+`tests/test_components.py` checks these against what the build accepts, and that
+every adapter imports `Grasshopper`, `Rhino` and `System`: Rhino writes type hints
+such as `System.Collections.Generic.List[float]` into `RunScript` when you place a
+component, and without those names it cannot run.
+
 ## Make it yours: rename four things
 
 | What | Where | Example |
 | --- | --- | --- |
 | the Python package | the folder `src/my_tool/`, `pyproject.toml` (`name`, `packages`, `yak-include`), the imports in `tests/` and `components/*/code.py` | `canopy_kit` |
 | the Rhino package | `yak-name` in `pyproject.toml`, `PACKAGE` in every `code.py` (a test checks they match) | `canopy-kit` |
-| the component prefix | the folder `components/Mt_ColumnGrid/` and the class name inside its `code.py` (they must match) | `Ck_` |
+| the component prefix | every folder `components/Mt_*/` and the class name inside its `code.py` (they must match) | `Ck_` |
 | who and what | `yak.json`, `description` in `pyproject.toml`, `category` in each `metadata.json`, this README | |
 
 Then check nothing was missed: `grep -rn "my_tool\|my-tool\|Mt_" .` should
@@ -77,11 +108,12 @@ latest `dev.py` build. If not, it stops with the reason on it (`dev: replace`,
 `dev: restart, replace`) instead of quietly running old code.
 `uv run scripts/dev.py status` says what Grasshopper loads and what collides.
 
-To add a component: copy `components/Mt_ColumnGrid/` to a new folder, rename
-the class to match the folder, change the one call and the conversion at the
-bottom of `code.py`, and list the inputs and outputs in `metadata.json`. The
-input names in `RunScript(self, ...)` must be the names in `metadata.json`;
-`tests/test_components.py` checks it.
+To add a component: copy the sample closest to it (item, list or tree; numbers or
+geometry) to a new folder, rename the class to match the folder, change the call and
+the conversion at the bottom of `code.py`, and list the inputs and outputs in
+`metadata.json`. The input names in `RunScript(self, ...)` must be the names in
+`metadata.json`, and it returns one value per output; `tests/test_components.py`
+checks both.
 
 ## Ship it
 

@@ -6,7 +6,7 @@ is one test here.
 
 import pytest
 
-from my_tool import column_grid
+from my_tool import column_grid, grid_labels
 
 
 def test_there_is_one_more_column_than_bays_each_way():
@@ -32,3 +32,23 @@ def test_the_far_corner_is_where_the_bays_say():
 def test_rejects_nonsense_input(nx, ny, bay):
     with pytest.raises(ValueError):
         column_grid(nx, ny, bay)
+
+
+def test_there_is_one_label_per_column_and_no_two_alike():
+    labels = grid_labels(4, 3)
+    assert len(labels) == len(column_grid(4, 3))
+    assert len(set(labels)) == len(labels)
+
+
+def test_the_first_column_is_a1_and_letters_run_along_x():
+    assert grid_labels(2, 1)[:3] == ["A1", "B1", "C1"]
+    assert grid_labels(2, 1, letters_along_x=False)[:3] == ["A1", "A2", "A3"]
+
+
+def test_letters_go_on_past_z():
+    assert grid_labels(27, 1)[25:28] == ["Z1", "AA1", "AB1"]
+
+
+def test_labels_reject_what_the_grid_rejects():
+    with pytest.raises(ValueError):
+        grid_labels(0, 3)

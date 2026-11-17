@@ -1,0 +1,46 @@
+{
+    "name": "Span Check",
+    "nickname": "Spans",
+    "category": "My Tool",
+    "subcategory": "Analysis",
+    "description": "Checks a list of spans against a limit: a verdict and a colour per span, and a summary.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {
+                "name": "spans",
+                "description": "Span lengths (m), as a list",
+                "typeHintID": "float",
+                "scriptParamAccess": "list",
+                "optional": false
+            },
+            {
+                "name": "limit",
+                "description": "The longest span allowed (m)",
+                "typeHintID": "float",
+                "scriptParamAccess": "item",
+                "optional": false
+            }
+        ],
+        "outputParameters": [
+            {
+                "name": "ok",
+                "description": "True for each span within the limit"
+            },
+            {
+                "name": "failures",
+                "description": "How many are over"
+            },
+            {
+                "name": "worst",
+                "description": "The longest span (m)"
+            },
+            {
+                "name": "colours",
+                "description": "Green or red per span, for Custom Preview"
+            }
+        ]
+    }
+}

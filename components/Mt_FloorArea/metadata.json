@@ -1,0 +1,31 @@
+{
+    "name": "Floor Area",
+    "nickname": "Area",
+    "category": "My Tool",
+    "subcategory": "Geometry",
+    "description": "The area and centroid of a closed polyline outline, measured in plan.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {
+                "name": "outline",
+                "description": "A closed polyline: the floor's outline",
+                "typeHintID": "curve",
+                "scriptParamAccess": "item",
+                "optional": false
+            }
+        ],
+        "outputParameters": [
+            {
+                "name": "area",
+                "description": "Area in plan (m2)"
+            },
+            {
+                "name": "centroid",
+                "description": "Centre of the area"
+            }
+        ]
+    }
+}

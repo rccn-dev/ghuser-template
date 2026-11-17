@@ -1,0 +1,41 @@
+{
+    "name": "Grid Labels",
+    "nickname": "Labels",
+    "category": "My Tool",
+    "subcategory": "Structure",
+    "description": "A label for every column of Column Grid, in the same order: A1, B1, ...",
+    "exposure": 4,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {
+                "name": "nx",
+                "description": "Bays along x",
+                "typeHintID": "int",
+                "scriptParamAccess": "item",
+                "optional": false
+            },
+            {
+                "name": "ny",
+                "description": "Bays along y",
+                "typeHintID": "int",
+                "scriptParamAccess": "item",
+                "optional": false
+            },
+            {
+                "name": "letters_along_x",
+                "description": "True: letters along x (default). False: along y",
+                "typeHintID": "bool",
+                "scriptParamAccess": "item",
+                "optional": true
+            }
+        ],
+        "outputParameters": [
+            {
+                "name": "labels",
+                "description": "One label per column, as text"
+            }
+        ]
+    }
+}

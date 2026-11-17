@@ -1,0 +1,35 @@
+{
+    "name": "Area Schedule",
+    "nickname": "Schedule",
+    "category": "My Tool",
+    "subcategory": "Data",
+    "description": "Room areas as a tree, one branch per floor: totals, each room's share, a report.",
+    "exposure": 2,
+    "ghpython": {
+        "isAdvancedMode": true,
+        "iconDisplay": 0,
+        "inputParameters": [
+            {
+                "name": "areas",
+                "description": "Room areas (m2), one branch per floor",
+                "typeHintID": "float",
+                "scriptParamAccess": "tree",
+                "optional": false
+            }
+        ],
+        "outputParameters": [
+            {
+                "name": "totals",
+                "description": "Total area per floor"
+            },
+            {
+                "name": "shares",
+                "description": "Each room's share of its floor, same tree"
+            },
+            {
+                "name": "report",
+                "description": "One line per floor, as text"
+            }
+        ]
+    }
+}
