@@ -18,11 +18,11 @@ build-backend = "hatchling.build"
 packages = ["src/my_tool"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests"]                # the spec; scripts/tests checks the build scripts
 
 # Read by scripts/ghuser.py and scripts/dev.py.
 [tool.ghuser]
-builder = "1.2.0"                                         # ghuser-builder release: image + dev tools
+builder = "1.2.1"                                         # ghuser-builder release: image + dev tools
 builder-repo = "https://github.com/rccn-dev/ghuser-builder"
 yak-name = "my-tool"                                      # the Rhino package; PACKAGE in every code.py
 yak-include = ["src/my_tool:lib/my_tool"]                 # the core travels inside the .yak
