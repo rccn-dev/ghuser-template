@@ -124,8 +124,8 @@ uv run scripts/ghuser.py --version 0.1.0 # dist/my-tool-0.1.0-rh8_0-any.yak
 
 The `.yak` is the whole tool: the core travels inside it (`lib/my_tool`). Drag
 it onto Rhino 8, **restart Rhino**, and check the components work from the
-ribbon before you hand it in. Components from the dev build now stop
-(`dev: not deployed`): replace them with the installed ones in any `.gh` you hand in.
+ribbon before you share it. Components from the dev build now stop
+(`dev: not deployed`): replace them with the installed ones in any `.gh` you share.
 Uninstall the `.yak` in the Package Manager before going back to `dev.py`.
 
 ## Release

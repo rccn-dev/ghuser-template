@@ -16,7 +16,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv run --python 3.9 pytest -q
 
-  # The build scripts, on every OS a student uses: what they send to Docker and
+  # The build scripts, on every OS a user works on: what they send to Docker and
   # what they bring back, with Docker played by the tests. Python 3.12: the
   # scripts run under uv, not in Rhino.
   scripts:
